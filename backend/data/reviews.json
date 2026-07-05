@@ -1,0 +1,52 @@
+[
+  {
+    "id": "rev-1",
+    "name": "Alex Rivera",
+    "email": "alex@techflow.io",
+    "message": "Monica's ability to simplify complex system requirements into elegant code is unmatched. Her approach to Soft-UI makes developer tools actually delightful to use.",
+    "rating": 5,
+    "status": "approved",
+    "avatarColor": "#A78BFA",
+    "createdAt": "2026-07-05T07:55:59.361Z"
+  },
+  {
+    "id": "rev-2",
+    "name": "Sarah Jenkins",
+    "email": "sarah@cloudscale.net",
+    "message": "Architecting the future is a bold claim, but Monica delivers. We worked together on a legacy migration that seemed impossible, and she handled it with calm competence and technical rigor.",
+    "rating": 5,
+    "status": "approved",
+    "avatarColor": "#EC4899",
+    "createdAt": "2026-07-05T04:55:59.362Z"
+  },
+  {
+    "id": "rev-3",
+    "name": "Marcus Thorne",
+    "email": "marcus@studiov.design",
+    "message": "A brilliant architect who understands the value of user experience. Rare to find someone who codes so deeply but cares about the interface so much.",
+    "rating": 4,
+    "status": "approved",
+    "avatarColor": "#3B82F6",
+    "createdAt": "2026-07-04T09:55:59.362Z"
+  },
+  {
+    "id": "rev-4",
+    "name": "David Wu",
+    "email": "david@fullstack.dev",
+    "message": "Precision. That's the one word for Monica's work.",
+    "rating": 5,
+    "status": "approved",
+    "avatarColor": "#10B981",
+    "createdAt": "2026-07-03T09:55:59.362Z"
+  },
+  {
+    "id": "rev-5",
+    "name": "Alice Smith",
+    "email": "alice@example.com",
+    "message": "How do I get in touch for a collaboration on a web application project?",
+    "rating": 5,
+    "status": "pending",
+    "avatarColor": "#F59E0B",
+    "createdAt": "2026-07-05T04:55:59.362Z"
+  }
+]
