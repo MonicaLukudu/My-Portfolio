@@ -104,12 +104,6 @@ export const Home: React.FC = () => {
                 <span>Download CV</span>
               </a>
 
-              <Link
-                to="/login"
-                className="inline-flex items-center justify-center rounded-xl border border-primary-200 bg-primary-50 px-6 py-3.5 text-sm font-semibold text-primary-700 hover:bg-primary-100 transition-colors"
-              >
-                Admin Login
-              </Link>
             </motion.div>
           </div>
 

@@ -7,7 +7,7 @@ import { User, LogOut, ExternalLink } from 'lucide-react';
 export const Navbar: React.FC = () => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  const { logout, isAuthenticated } = useAuth();
+  const { logout } = useAuth();
 
   const isManagementSide = pathname.startsWith('/dashboard') || pathname.startsWith('/settings');
 
@@ -101,14 +101,6 @@ export const Navbar: React.FC = () => {
                   </Link>
                 );
               })}
-              {!isAuthenticated && (
-                <Link
-                  to="/login"
-                  className="rounded-full border border-primary-500 px-3 py-1.5 text-sm font-semibold text-primary-600 hover:bg-primary-50"
-                >
-                  Login
-                </Link>
-              )}
             </div>
           )}
         </nav>
