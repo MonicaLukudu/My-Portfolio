@@ -92,7 +92,7 @@ export const About: React.FC = () => {
                 Software Engineer
               </h1>
               <p className="text-sm text-primary-500 font-semibold mt-2 tracking-wide uppercase">
-                {settings?.title || "Lead Architect"} &bull; {locationText}
+                {settings?.title || "Software Engineer"} &bull; {locationText}
               </p>
               
               <p className="mt-6 text-neutral-600 leading-relaxed text-base md:text-lg">

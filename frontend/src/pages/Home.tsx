@@ -128,7 +128,7 @@ export const Home: React.FC = () => {
                     {settings?.name || "Monica David"}
                   </h3>
                   <p className="text-sm text-neutral-500">
-                    {settings?.title || "Lead Architect"}
+                    {settings?.title || "Software Engineer"}
                   </p>
                 </div>
                 <div className="flex gap-1">
