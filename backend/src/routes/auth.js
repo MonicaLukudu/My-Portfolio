@@ -1,6 +1,6 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import rateLimit from 'express-rate-limit';
 
 const router = express.Router();
@@ -32,26 +32,31 @@ export function requireAdmin(req, res, next) {
 }
 
 // POST login
-router.post('/login', loginLimiter, async (req, res) => {   // ✅ now async
-  const { username, password } = req.body;
-  const adminUsername = process.env.ADMIN_USERNAME;
-  const passwordHash = process.env.ADMIN_PASSWORD_HASH;      // ✅ consistent name
+router.post('/login', loginLimiter, async (req, res) => {
+  try {
+    const { username, password } = req.body;
+    const adminUsername = process.env.ADMIN_USERNAME;
+    const passwordHash = process.env.ADMIN_PASSWORD_HASH;
 
-  const validUsername = username === adminUsername;
-  const validPassword = passwordHash
-    ? await bcrypt.compare(password, passwordHash)           // ✅ matches the const above
-    : false;
+    const validUsername = username === adminUsername;
+    const validPassword = passwordHash
+      ? await bcrypt.compare(password, passwordHash)
+      : false;
 
-  if (validUsername && validPassword) {
-    const token = jwt.sign(
-      { username: adminUsername, role: 'admin' },
-      process.env.JWT_SECRET,
-      { expiresIn: '24h' }
-    );
-    return res.json({ token, username: adminUsername });
+    if (validUsername && validPassword) {
+      const token = jwt.sign(
+        { username: adminUsername, role: 'admin' },
+        process.env.JWT_SECRET,
+        { expiresIn: '24h' }
+      );
+      return res.json({ token, username: adminUsername });
+    }
+
+    return res.status(401).json({ error: 'Invalid username or password' });
+  } catch (error) {
+    console.error('Login error:', error.message);
+    return res.status(500).json({ error: 'Something went wrong during login' });
   }
-
-  return res.status(401).json({ error: 'Invalid username or password' });
 });
 
 // GET verify token
