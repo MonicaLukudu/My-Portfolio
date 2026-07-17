@@ -1,7 +1,18 @@
 import express from 'express';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
+import rateLimit from 'express-rate-limit';
 
 const router = express.Router();
+
+// Rate limiting for login attempts
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 5,
+  message: { error: 'Too many login attempts, try again in 15 minutes' },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // Middleware to verify Admin JWT token
 export function requireAdmin(req, res, next) {
@@ -12,7 +23,7 @@ export function requireAdmin(req, res, next) {
 
   const token = authHeader.split(' ')[1];
   try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET || 'fallback_secret_key');
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     req.admin = decoded;
     next();
   } catch (error) {
@@ -21,22 +32,26 @@ export function requireAdmin(req, res, next) {
 }
 
 // POST login
-router.post('/login', (req, res) => {
+router.post('/login', loginLimiter, async (req, res) => {   // ✅ now async
   const { username, password } = req.body;
-  const adminUsername = process.env.ADMIN_USERNAME ;
-  const adminPassword = process.env.ADMIN_PASSWORD ;
+  const adminUsername = process.env.ADMIN_USERNAME;
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH;      // ✅ consistent name
 
-  if (username === adminUsername && password === adminPassword) {
-    // Generate token
+  const validUsername = username === adminUsername;
+  const validPassword = passwordHash
+    ? await bcrypt.compare(password, passwordHash)           // ✅ matches the const above
+    : false;
+
+  if (validUsername && validPassword) {
     const token = jwt.sign(
       { username: adminUsername, role: 'admin' },
-      process.env.JWT_SECRET || 'fallback_secret_key',
+      process.env.JWT_SECRET,
       { expiresIn: '24h' }
     );
     return res.json({ token, username: adminUsername });
-  } else {
-    return res.status(401).json({ error: 'Invalid username or password' });
   }
+
+  return res.status(401).json({ error: 'Invalid username or password' });
 });
 
 // GET verify token
