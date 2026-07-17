@@ -4,8 +4,8 @@
   "description": "Express backend with MongoDB and local fallback for Monica's portfolio",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "node --watch src/server.js"
+    "start": "node init && node src/server.js",
+    "dev": "node init && node --watch src/server.js"
   },
   "type": "module",
   "dependencies": {

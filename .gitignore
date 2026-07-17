@@ -5,5 +5,5 @@ backend/.env
 frontend/.env
 frontend/dist/
 backend/uploads/
-.vscode/
 .DS_Store
+config.bat
